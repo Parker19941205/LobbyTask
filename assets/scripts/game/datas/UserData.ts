@@ -32,10 +32,10 @@ class Data {
     friends: Array<any> = [];
 }
 
+
 export class UserData extends BaseData {
     data: Data;
     gameKey: string = GameConfig.AppCacheName + "USER_DATA"
-    curChatId: string = "";
 
     /**没有数据时候 执行 */
     public createData(): Data {

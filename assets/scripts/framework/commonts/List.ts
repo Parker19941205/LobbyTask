@@ -507,6 +507,7 @@ export default class List extends cc.Component {
 
         if (t.tmpNode) t.tmpNode.active = false// 不显示原来的节点模板
 
+        cc.log("tmpPrefab",t.tmpPrefab)
         if(t.tmpPrefab || t.tmpNode){
             t.setTemplateItem(cc.instantiate(t.templateType == TemplateType.PREFAB ? t.tmpPrefab : t.tmpNode));
         }

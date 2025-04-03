@@ -5,6 +5,7 @@ import { NetData } from "../../framework/network/NetInterface";
 import { NetManager } from "../../framework/network/NetManager";
 import { TimeUtils } from "../../framework/utils/TimeUtils";
 import { EventName } from "../config/Config";
+import { DayTaskData } from "../datas/DayTaskData";
 import { GameData } from "../datas/GameData";
 import { GuideData } from "../datas/GuideData";
 import { TrackData } from "../datas/TrackData";
@@ -48,8 +49,6 @@ export class PlayerMgr{
         return this.instance;
     }
     private isLoaded: boolean = false;
-    public isHurtAdd:boolean = false
-    public isIncomeAdd:boolean = false
     public offlineTime:number = null
     public recorderTime = 0;  //录屏时间
     public recorderStart:boolean = false;  //录屏开始
@@ -58,9 +57,9 @@ export class PlayerMgr{
     private guideData: GuideData;
     private gameData: GameData;
     private userData: UserData;
-    public roomID:string = "";  //房间ID
+    private dayTaskData: DayTaskData;
+
     private walletDelayMsg = []
-    public isGameing:boolean = false;  //是否正在游戏中
 
     private initData() {
         cc.log("PlayerMgr:init=======>")
@@ -81,6 +80,9 @@ export class PlayerMgr{
         this.trackData.getData();
         this.guideData = new GuideData();
         this.guideData.getData();
+        this.dayTaskData = new DayTaskData();
+        this.dayTaskData.getData();
+
 
         EventMgr.getInstance().emit(BaseEventName.Loading, LoadingProcess.PlayerCfg)
     }
@@ -105,6 +107,11 @@ export class PlayerMgr{
         return this.userData.data;
     }
 
+    getDayTaskData() {
+        return this.dayTaskData;
+    }
+
+
     // 每秒更新
     updateData(){
         let gameRunTime =  cc.director.getTotalTime();
@@ -112,7 +119,7 @@ export class PlayerMgr{
         //cc.log("游戏运行时间==========>",timeScend)
 
         if(timeScend % (10*60) == 0){
-            //每10分钟更新一次
+            //每10分钟更新一次 
             if(!this.isGameing){
                 cc.log("每10分钟更新一次")
                 //EventMgr.getInstance().emit(EventName.RefreshPetInfo)

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "694065ed-649b-4226-982d-7901b39fe11a",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 197,
+  "height": 27,
+  "platformSettings": {},
+  "subMetas": {
+    "给大雄宝殿 供果 12": {
+      "ver": "1.0.6",
+      "uuid": "f48c0605-02d3-456f-bb4a-a80916a40df1",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "694065ed-649b-4226-982d-7901b39fe11a",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 197,
+      "height": 27,
+      "rawWidth": 197,
+      "rawHeight": 27,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "24133bc8-b6eb-4566-b78e-2c4327722657",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 140,
+  "height": 38,
+  "platformSettings": {},
+  "subMetas": {
+    "每日任务12": {
+      "ver": "1.0.6",
+      "uuid": "f61edc4d-d4b2-4ee4-babd-decfcdfe3ee7",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "24133bc8-b6eb-4566-b78e-2c4327722657",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 140,
+      "height": 38,
+      "rawWidth": 140,
+      "rawHeight": 38,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
