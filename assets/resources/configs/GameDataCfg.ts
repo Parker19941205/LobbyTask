@@ -3,11 +3,11 @@ export interface DayTasksCfg {
    id: number; 
    /**任务名*/
    title: string; 
-   /**任务类型&界面跳转
-1=贡香
-2=贡果
-3=短信
-4=升职
+   /**上供类型
+1=香火
+2=供花
+3=供果
+4=拜佛
 */
    tasktype: number; 
    /**跳转到对应的界面 
@@ -53,10 +53,36 @@ export interface ScoreExchangeCfg {
 
 }
 
+export interface RankCfg {
+   /**序号*/
+   id: number; 
+   /**排名*/
+   rank: number; 
+   /**玩家id*/
+   uid: string; 
+   /**头像id*/
+   headid: number; 
+   /**昵称*/
+   nickname: string; 
+   /**功德*/
+   gongde: number; 
+
+}
+
+export interface VideoCfg {
+   /**序号*/
+   id: number; 
+   /**物品id*/
+   goodsid: number; 
+
+}
+
 export class GameData {
    DayTasksCfg?: DayTasksCfg[];
    SignCfg?: SignCfg[];
    GoodsCfg?: GoodsCfg[];
    ScoreExchangeCfg?: ScoreExchangeCfg[];
+   RankCfg?: RankCfg[];
+   VideoCfg?: VideoCfg[];
 
 }

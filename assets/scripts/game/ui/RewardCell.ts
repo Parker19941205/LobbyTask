@@ -1,5 +1,6 @@
 import { ScoreExchangeCfg } from "../../../resources/configs/GameDataCfg";
 import ListItem from "../../framework/commonts/ListItem";
+import { IRewardConfig } from "../config/InterFaceConfig";
 
 const { ccclass, property } = cc._decorator;
 
@@ -17,8 +18,8 @@ export default class RewardCell extends ListItem {
 
     }
 
-    updateView(data: ScoreExchangeCfg) {
+    updateView(data: IRewardConfig) {
         this.setSprite(this.icon, "item", "" + data.goodsid)
-        this.numLab.string =  data.score + '积分'
+        this.numLab.string =  "x"+ data.num
     }
 }

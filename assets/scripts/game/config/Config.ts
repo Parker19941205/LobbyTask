@@ -15,7 +15,9 @@ export enum UIID {
     FangShengUI,
     SignUI,
     ScoreExUI,
-    RewardUI
+    RewardUI,
+    RankUI,
+    VideoUI
 }
 
 /**ui配置类 */
@@ -37,7 +39,8 @@ export let UICF: { [key: string]: UIConf } = {
     [UIID.SignUI]: { prefab: "SignUI", name: "SignUI", showTop: true, zIndex: OrderLayer.pop, bundleName: "prefabs" },
     [UIID.ScoreExUI]: { prefab: "ScoreExUI", name: "ScoreExUI", showTop: true, zIndex: OrderLayer.main, bundleName: "prefabs" },
     [UIID.RewardUI]: { prefab: "RewardUI", name: "RewardUI", showTop: true, zIndex: OrderLayer.pop, bundleName: "prefabs" },
-
+    [UIID.RankUI]: { prefab: "RankUI", name: "RankUI", showTop: true, zIndex: OrderLayer.pop, bundleName: "prefabs" },
+    [UIID.VideoUI]: { prefab: "VideoUI", name: "VideoUI", showTop: true, zIndex: OrderLayer.pop, bundleName: "prefabs" },
 
 }
 
@@ -80,7 +83,7 @@ export enum EventName {
     RefreshEenergy = "RefreshEenergy",
     FlyCurrency = "FlyCurrency",
     RefreshSign = "RefreshSign",
- 
+    RefreshTask = "RefreshTask",
 
 }
 

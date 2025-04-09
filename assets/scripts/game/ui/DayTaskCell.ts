@@ -1,7 +1,9 @@
 import BaseUI from "../../framework/base/BaseUI";
 import ListItem from "../../framework/commonts/ListItem";
+import UIToggle from "../../framework/commonts/UIToggle";
 import { UIMgr } from "../../framework/manager/UIMgr";
 import { UIID } from "../config/Config";
+import { DayTasksExtendedCfg } from "../datas/DayTaskData";
 import { PlayerMgr } from "../manager/PlayerMgr";
 import DayTaskUI from "./DayTaskUI";
 
@@ -15,9 +17,10 @@ export default class DayTaskCell extends ListItem {
     jinduLab: cc.Label = null;
     @property(cc.Label)
     btnLab: cc.Label = null;
+    @property(cc.Node)
+    btnNode: cc.Node = null;
 
-    private dataList: any[] = [];
-    private taskConfig: any = null;
+    private taskConfig: DayTasksExtendedCfg = null;
     private delegate: DayTaskUI = null;
 
     onLoad() {
@@ -27,17 +30,22 @@ export default class DayTaskCell extends ListItem {
 
     }
 
-    updateView(taskConfig,delegate) {
+    updateView(taskConfig:DayTasksExtendedCfg,delegate) {
         this.taskConfig = taskConfig
         this.delegate = delegate
-        let data = PlayerMgr.getInstance().getDayTaskData().getTaskByID(taskConfig.id);
         this.title.string = taskConfig.title
         this.jinduLab.string = "功德" + "+" + taskConfig.reward
-        this.btnLab.string = data.isfinish ? "领取" : "前往"
+        this.btnLab.string = taskConfig.isCompleted ? "领取" : "前往"
+        this.btnNode.getComponent(UIToggle).setToggle(taskConfig.isCompleted ? 1 : 0)
     }
 
     onClickBtn(){
-        this.delegate.closeUI()
-        UIMgr.getInstance().openUI(UIID.LobbyUI,Number(this.taskConfig.gotoid))
+        if(this.taskConfig.isCompleted){
+            PlayerMgr.getInstance().getDayTaskData().getTaskReward(this.taskConfig.id)
+            PlayerMgr.getInstance().getUserData().changeMerit(this.taskConfig.reward)
+        }else{
+            this.delegate.closeUI()
+            UIMgr.getInstance().openUI(UIID.LobbyUI,this.taskConfig.gotoid)
+        }
     }
 }

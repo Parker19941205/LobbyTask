@@ -3,7 +3,6 @@ import UIToggle from "../../framework/commonts/UIToggle";
 import { UIMgr } from "../../framework/manager/UIMgr";
 import { UIID } from "../config/Config";
 import { LobbyType } from "../config/GameEnum";
-import EggController from "./EggController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -32,10 +31,6 @@ export default class UIHome extends BaseUI {
 
     start(){
         console.log("UIHome:start")
-    
-
-        // let angle = this.calculateEntryRelativeAngle(cc.v2(200, -100))
-        // cc.log("angle===>",angle)
     }
   
 
@@ -54,6 +49,15 @@ export default class UIHome extends BaseUI {
     onScoreBtn(){
         UIMgr.getInstance().openUI(UIID.ScoreExUI)
     }
+
+    onRankBtn(){
+        UIMgr.getInstance().openUI(UIID.RankUI)
+    }
+
+    onVideoBtn(){
+        UIMgr.getInstance().openUI(UIID.VideoUI)
+    }
+
 
     onGotoBtn(event:cc.Event.EventTouch,lobbyType:LobbyType){
         console.log("UIHome:onGotoBtn",lobbyType)

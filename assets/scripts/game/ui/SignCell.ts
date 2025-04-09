@@ -3,7 +3,8 @@ import BaseUI from "../../framework/base/BaseUI";
 import { BaseButton } from "../../framework/commonts/BaseButton";
 import UIToggle from "../../framework/commonts/UIToggle";
 import { UIMgr } from "../../framework/manager/UIMgr";
-import { EventName } from "../config/Config";
+import { EventName, UIID } from "../config/Config";
+import { IRewardConfig } from "../config/InterFaceConfig";
 import { DataMgr } from "../manager/DataMgr";
 import { PlayerMgr } from "../manager/PlayerMgr";
 
@@ -43,15 +44,18 @@ export default class SignCell extends BaseUI {
     }
 
     onClickBtn() {
+        UIMgr.getInstance().showTips("签到成功")
+        //领取奖励
+        let rewardItem:IRewardConfig[] = [
+            {goodsid: this.cfg.reward,num:1}
+        ]
+        UIMgr.getInstance().openUI(UIID.RewardUI, rewardItem)
         PlayerMgr.getInstance().getSignData().startSign(this.day)
     }
 
     updateSignInfo(day: number) {
         if(this.day == day) {
-            cc.log("updateSignInfo",day)
             this.updateView(day)
-            UIMgr.getInstance().showTips("签到成功")
-            PlayerMgr.getInstance().getBagData().addGoods(this.cfg.reward)
         }
     }
 }

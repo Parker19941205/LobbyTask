@@ -1,4 +1,4 @@
-import { DayTasksCfg, GameData, GoodsCfg, ScoreExchangeCfg, SignCfg } from "../../../resources/configs/GameDataCfg";
+import { DayTasksCfg, GameData, GoodsCfg, RankCfg, ScoreExchangeCfg, SignCfg, VideoCfg } from "../../../resources/configs/GameDataCfg";
 import { BaseEventName, LoadingProcess } from "../../framework/configs/Appcfg";
 import { EventMgr } from "../../framework/manager/EventMgr";
 import { LogMgr } from "../../framework/manager/LogMgr";
@@ -23,9 +23,7 @@ export class DataMgr {
             res.decRef();
             EventMgr.getInstance().emit(BaseEventName.Loading, LoadingProcess.ExcelCfg)
             LogMgr.getInstance().debug("游戏配置表数据========>",this.data)
-
         })
-        EventMgr.getInstance().emit(BaseEventName.Loading, LoadingProcess.ExcelCfg)
     }
 
     
@@ -45,7 +43,21 @@ export class DataMgr {
         return this.data.ScoreExchangeCfg;
     }
 
+    public getAllRankCfg(): RankCfg[] {
+        return this.data.RankCfg;
+    }
+
+    public getAllVideoCfg(): VideoCfg[] {
+        return this.data.VideoCfg;
+    }
+
+
     public getSignCfgByDay(day: number): SignCfg {
         return this.data.SignCfg.find((cfg) => cfg.id == day);
+    }
+
+
+    public getRankData(): RankCfg[] {
+        return this.getAllRankCfg().sort((a, b) => { return a.gongde - b.gongde })
     }
 }

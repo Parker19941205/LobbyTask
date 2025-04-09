@@ -1,26 +1,25 @@
+import { DayTasksCfg } from "../../../resources/configs/GameDataCfg";
 import { BaseData } from "../../framework/base/BaseData";
 import { EventMgr } from "../../framework/manager/EventMgr";
 import { TimeUtils } from "../../framework/utils/TimeUtils";
 import { EventName, GameConfig } from "../config/Config";
+import { LobbyType, ShangGongType } from "../config/GameEnum";
 import { DataMgr } from "../manager/DataMgr";
 import { PlayerMgr } from "../manager/PlayerMgr";
-import { DayTasksCfg } from "./GameData";
 
-
-export class DayTaskInfo{
-    /** 任务id */
-    taskID:number
-    /** 当前完成进度 */
-    finishrate:number = 0
-    /** 是否领取 */
-    isget:boolean = false
-    /** 是否达成 */
-    isfinish:boolean = false
+export interface DayTasksExtendedCfg extends DayTasksCfg {
+    /** 新增字段：任务是否已完成 */
+    isCompleted: boolean;
+    /** 新增字段：是否领取 */
+    isGet: boolean;
+    /** 新增字段：当前进度 */
+    currentNum: number;
 }
 
 class Data {
     /**任务列表 */
-    dayTask: DayTaskInfo[] = []  //每日任务的完成情况
+    dayTask: DayTasksExtendedCfg[] = []
+    lastSaveTime: number = -1; //上次保存数据的时间
 }
 
 export class DayTaskData extends BaseData {
@@ -29,25 +28,64 @@ export class DayTaskData extends BaseData {
 
     public createData(): Data {
         this.data = new Data();
+
+        //初始化任务数据
+        let newData:DayTasksExtendedCfg[] = []
+        let taskList = this.getAllTask()
+        for(var i = 0; i < taskList.length; i++){
+            let task = taskList[i]
+            let newTask:DayTasksExtendedCfg = task as DayTasksExtendedCfg
+            newTask.isCompleted = false
+            newTask.isGet = false
+            newTask.currentNum = 0
+            newData.push(newTask)
+        }
+        this.data.dayTask = newData
+        this.data.lastSaveTime = TimeUtils.GetTimeBySecond();
+
         this.saveData();
         return this.data;
     }
 
-    initData() {
-        cc.log("TaskData:initData");
-        // if(TimeUtils.compareIsToday(this.data.taskTime)){
-        //     cc.log("今天已经初始化过任务数据了")
-        //     return
-        // }
-        // cc.log("初始化任务数据")
-        // this.data.taskTime = TimeUtils.GetTimeBySecond();
-        // for(var i = 0; i < this.data.taskList.length; i++){
-        //     let task = this.data.taskList[i];
-        //     task.currentNum = 0;
-        //     task.isFinish = false;
-        //     task.isGet = false;
-        // }
-        // this.saveData()
+    initData(isNew:boolean) {
+        cc.log("TaskData:initData",isNew,this.data.dayTask);
+        if(!isNew){
+            if(TimeUtils.compareIsToday(this.data.lastSaveTime)){
+                return
+            }
+            cc.log("初始化任务数据")
+            this.data.lastSaveTime = TimeUtils.GetTimeBySecond();
+            for(var i = 0; i < this.data.dayTask.length; i++){
+                let task = this.data.dayTask[i];
+                task.currentNum = 0;
+                task.isGet = false;
+                task.isCompleted = false;
+            }
+            this.saveData()
+        }
+    }
+
+    getDayTaskByType(lobbyType: LobbyType,shangGongType:ShangGongType) :DayTasksExtendedCfg {
+        let data = this.data.dayTask.find(item => item.gotoid == lobbyType && item.tasktype == shangGongType)
+        return data
+    }
+
+    getDayTaskByID(taskid:number) :DayTasksExtendedCfg {
+        let data = this.data.dayTask.find(item => item.id == taskid)
+        return data
+    }
+
+    doTask(lobbyType: LobbyType,shangGongType:ShangGongType) {
+        cc.log("完成任务",lobbyType,shangGongType)
+        let data = this.getDayTaskByType(lobbyType,shangGongType)
+        cc.log("data",data)
+        if(data){
+            data.currentNum += 1
+            if(data.currentNum >= data.targetnum){
+                data.isCompleted = true
+            }
+        }
+        this.saveData()
     }
 
     getAllTask() :DayTasksCfg[] {
@@ -55,53 +93,26 @@ export class DayTaskData extends BaseData {
         return data;
     }
 
-    getTaskByID(taskID: number) :DayTaskInfo {
-        let data = this.data.dayTask.find(task => task.taskID == taskID)
-        if(!data){
-            data = new DayTaskInfo()
-            data.taskID = taskID
-            this.data.dayTask.push(data)
-        }
-        return data;
-    }
-
-    getTodayTask() {
+    getTodayTask() :DayTasksExtendedCfg[] {
         let list = []
-        let configData = this.getAllTask()
-        for(var i = 0; i < configData.length; i++){
-            let config = configData[i];
-            let task = this.getTaskByID(config.id)
-            if(task.isget == false || task.isfinish == false){
+        let dayTask = this.data.dayTask
+        for(var i = 0; i < dayTask.length; i++){
+            let config = dayTask[i];
+            if(config.isGet == false){
                 list.push(config)
             }
         }
         return list;
     }
 
-    updateTaskData(mtaskType: TaskType) {
-        for(var i = 0; i < this.data.taskList.length; i++){
-            let task = this.data.taskList[i];
-            let taskType = task.taskType
-            if(mtaskType == taskType && !task.isFinish){
-                task.currentNum++
-                if(task.currentNum >= task.targetNum){
-                    task.isFinish = true
-                }
-            }              
+    /**领取任务奖励 */
+    getTaskReward(taskid:number) {
+        let data = this.getDayTaskByID(taskid)
+        if(data){
+            data.isGet = true
         }
         this.saveData()
-        EventMgr.getInstance().emit(EventName.RefreshTaskView)
+        EventMgr.getInstance().emit(EventName.RefreshTask)
     }
 
-    setRewardGet(taskID: number) {
-        for(var i = 0; i < this.data.taskList.length; i++){
-            let task = this.data.taskList[i];
-            if(task.taskID == taskID){
-                task.isGet = true
-                break;
-            }
-        }
-        this.saveData()
-        EventMgr.getInstance().emit(EventName.RefreshTaskView)
-    }
 }
