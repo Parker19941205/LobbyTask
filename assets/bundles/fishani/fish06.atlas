@@ -1,0 +1,48 @@
+
+fish06.png
+size: 175,52
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+turtle1
+  rotate: false
+  xy: 2, 16
+  size: 58, 34
+  orig: 58, 34
+  offset: 0, 0
+  index: -1
+turtle2
+  rotate: false
+  xy: 143, 13
+  size: 30, 37
+  orig: 30, 37
+  offset: 0, 0
+  index: -1
+turtle3
+  rotate: false
+  xy: 2, 2
+  size: 28, 12
+  orig: 28, 12
+  offset: 0, 0
+  index: -1
+turtle4
+  rotate: false
+  xy: 32, 4
+  size: 21, 10
+  orig: 21, 10
+  offset: 0, 0
+  index: -1
+turtle5
+  rotate: false
+  xy: 62, 7
+  size: 79, 43
+  orig: 79, 43
+  offset: 0, 0
+  index: -1
+turtle6
+  rotate: false
+  xy: 115, 11
+  size: 26, 18
+  orig: 26, 18
+  offset: 0, 0
+  index: -1

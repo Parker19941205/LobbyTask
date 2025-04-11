@@ -40,6 +40,15 @@ export interface GoodsCfg {
    goodsid: number; 
    /**物品名称*/
    name: string; 
+   /**物品类型
+1=动物
+2=水果
+3=香火
+4=祈福
+5=花*/
+   type: number; 
+   /**动画资源id*/
+   resid: string; 
 
 }
 

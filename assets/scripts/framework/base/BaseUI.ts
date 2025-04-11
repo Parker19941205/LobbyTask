@@ -297,7 +297,12 @@ export default class BaseUI extends cc.Component {
         })
     }
    
-
+    /**加载本地spine动画 */
+    loadBundleSpine(spine:sp.Skeleton,bundleName:string,path:string){
+        ResourceMgr.getInstance().loadBundleSpine(spine, bundleName, path,"idle1",(res:sp.SkeletonData)=>{
+            this.addRes(res)
+        })
+    }
 
 
 

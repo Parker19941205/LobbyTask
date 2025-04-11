@@ -17,7 +17,8 @@ export enum UIID {
     ScoreExUI,
     RewardUI,
     RankUI,
-    VideoUI
+    VideoUI,
+    SelectUI
 }
 
 /**ui配置类 */
@@ -41,7 +42,7 @@ export let UICF: { [key: string]: UIConf } = {
     [UIID.RewardUI]: { prefab: "RewardUI", name: "RewardUI", showTop: true, zIndex: OrderLayer.pop, bundleName: "prefabs" },
     [UIID.RankUI]: { prefab: "RankUI", name: "RankUI", showTop: true, zIndex: OrderLayer.pop, bundleName: "prefabs" },
     [UIID.VideoUI]: { prefab: "VideoUI", name: "VideoUI", showTop: true, zIndex: OrderLayer.pop, bundleName: "prefabs" },
-
+    [UIID.SelectUI]: { prefab: "SelectUI", name: "SelectUI", showTop: true, zIndex: OrderLayer.pop, bundleName: "prefabs" },
 }
 
 /**===========================声音资源============================= */

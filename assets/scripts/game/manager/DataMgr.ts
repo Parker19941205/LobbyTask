@@ -56,8 +56,12 @@ export class DataMgr {
         return this.data.SignCfg.find((cfg) => cfg.id == day);
     }
 
-
     public getRankData(): RankCfg[] {
         return this.getAllRankCfg().sort((a, b) => { return a.gongde - b.gongde })
     }
+
+    public getGoodsCfgByID(id: number): GoodsCfg {
+        return this.data.GoodsCfg.find((cfg) => cfg.goodsid == id);
+    }
+
 }

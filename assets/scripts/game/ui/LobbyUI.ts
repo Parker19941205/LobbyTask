@@ -16,6 +16,10 @@ export default class LobbyUI extends BaseUI {
     success: cc.Node = null;
     @property(cc.Node)
     content: cc.Node = null;
+    @property(cc.Sprite)
+    roleSprite: cc.Sprite = null;
+    @property(sp.Skeleton)
+    xiangani: sp.Skeleton = null;
 
     private lobbyType: LobbyType
     onLoad() {
@@ -29,6 +33,7 @@ export default class LobbyUI extends BaseUI {
         this.lobbyType = lobbyType
         this.titleLab.string = LobbyTypeStr[lobbyType]
         this.setSprite(this.bgSprite, "lobby", "" + lobbyType)
+        this.setSprite(this.roleSprite, "role", "" + lobbyType)
     }
 
     onBottomBtn(event: cc.Event.EventTouch,type:string) {
@@ -42,8 +47,11 @@ export default class LobbyUI extends BaseUI {
         cc.log("onShangGongBtn",type)
         PlayerMgr.getInstance().getDayTaskData().doTask(this.lobbyType,Number(type))
         this.success.opacity = 0
+        this.xiangani.paused = false
+        this.xiangani.setAnimation(0, "idle1", true)
         cc.tween(this.success).to(1,{opacity:255}).delay(1).call(() => {
             this.success.active = false
+            this.xiangani.paused = true
         }).start()
     }
 

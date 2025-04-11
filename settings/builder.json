@@ -1,5 +1,5 @@
 {
-  "title": "OpenBox",
+  "title": "LobbyTask",
   "packageName": "org.cocos2d.demo",
   "startScene": "067cd63c-7413-41cf-9a74-36bfcb59a6a2",
   "excludeScenes": [],
@@ -54,6 +54,7 @@
   "agreements": {},
   "harmonyos-next": {
     "packageName": "com.cocos.openharmony",
-    "REMOTE_SERVER_ROOT": ""
+    "REMOTE_SERVER_ROOT": "",
+    "jsEngine": "JSVM"
   }
 }

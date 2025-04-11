@@ -1,5 +1,7 @@
 import { BaseData } from "../../framework/base/BaseData";
 import { EventName, GameConfig } from "../config/Config";
+import { GoodsType } from "../config/GameEnum";
+import { DataMgr } from "../manager/DataMgr";
 
 export class BagInfo{
     /** 物品id */
@@ -37,6 +39,17 @@ export class BagData extends BaseData {
         this.saveData()
     }
 
+    getGoodsByType(type: GoodsType) :BagInfo[] {
+        let list = []
+        for(let i = 0; i < this.data.bagList.length; i++){
+            let goodsID = this.data.bagList[i].goodsID
+            let item = DataMgr.getInstance().getGoodsCfgByID(goodsID)
+            if(item.type == type){
+                list.push(this.data.bagList[i])
+            }
+        }
+        return list
+    }
 
-
+    
 }

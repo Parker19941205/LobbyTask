@@ -1,0 +1,27 @@
+
+fish05.png
+size: 88,74
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+fish5_1
+  rotate: false
+  xy: 2, 4
+  size: 22, 20
+  orig: 22, 20
+  offset: 0, 0
+  index: -1
+fish5_2
+  rotate: false
+  xy: 2, 26
+  size: 84, 46
+  orig: 84, 46
+  offset: 0, 0
+  index: -1
+fish5_3
+  rotate: false
+  xy: 36, 3
+  size: 44, 31
+  orig: 44, 31
+  offset: 0, 0
+  index: -1

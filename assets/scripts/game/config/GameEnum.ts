@@ -34,3 +34,16 @@ export enum ShangGongType{
     /**拜佛 */
     BaiFo,
 }
+
+export enum GoodsType{
+    /**动物 */
+    Animal = 1,
+    /**水果 */
+    Fruit,
+    /**香火 */
+    XiangHuo,
+    /**祈福 */
+    QiFu,
+    /**花 */
+    Flower,
+}

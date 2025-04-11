@@ -383,6 +383,27 @@ export class ResourceMgr {
         });
     }
  
+
+    /**
+     * 加载本地Bundle spine动画
+     * @param spine spine对象
+     * @param bundleName bundle名称
+     * @param path 路径
+     * */
+    public loadBundleSpine(spine:sp.Skeleton,bundleName:string,path:string,animationName:string = "idle1",call?:Function) {
+        ResourceMgr.getInstance().loadBundle(bundleName, (bundle: cc.AssetManager.Bundle) => {
+            bundle.load(path, sp.SkeletonData, (err, skeletonData:sp.SkeletonData) => {
+                //cc.log("skeletonData===>",skeletonData,err)
+                spine.skeletonData = skeletonData
+                spine.setAnimation(0, animationName, true);
+                if(call){
+                    call(skeletonData)
+                }
+            })
+        })
+    }
+
+
     /**
      * 加载远程音频
      * @param url 远程音频地址
@@ -393,7 +414,7 @@ export class ResourceMgr {
         cc.assetManager.loadRemote(url, function (err, res: cc.AudioClip) {
             //Logger.info("加载远程音频", err,res)
             if (!err) {
-                Logger.info("res111:", res)
+                Logger.info("res:", res)
                 finish(res)
             } else {
                 Logger.info("远程资源：", url, "加载失败")
