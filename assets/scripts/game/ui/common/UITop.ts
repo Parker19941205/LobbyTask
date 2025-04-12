@@ -16,7 +16,7 @@ export default class UITop extends BaseUI {
     diamondLayout: cc.Node = null;
 
     start() {
-        this.addEvent(EventName.FlyCurrency, this.refreshCurrency)
+        //this.addEvent(EventName.FlyCurrency, this.refreshCurrency)
         this.calcItemPos();
     }
     onEnable() {

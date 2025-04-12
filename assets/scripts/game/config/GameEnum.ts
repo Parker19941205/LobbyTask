@@ -33,6 +33,8 @@ export enum ShangGongType{
     GongGuo,
     /**拜佛 */
     BaiFo,
+    /**放生 */
+    FangSheng,
 }
 
 export enum GoodsType{
@@ -47,3 +49,12 @@ export enum GoodsType{
     /**花 */
     Flower,
 }
+
+// 定义枚举值到字符串的映射
+export const SGToGoodsType: Record<ShangGongType, GoodsType> = {
+    [ShangGongType.XiangHuo]: GoodsType.XiangHuo,
+    [ShangGongType.GongHua]: GoodsType.Flower,
+    [ShangGongType.GongGuo]: GoodsType.Fruit,
+    [ShangGongType.BaiFo]:GoodsType.QiFu,
+    [ShangGongType.FangSheng]:GoodsType.Animal
+};

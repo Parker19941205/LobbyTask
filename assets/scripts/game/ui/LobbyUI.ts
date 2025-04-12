@@ -1,6 +1,8 @@
 import BaseUI from "../../framework/base/BaseUI";
 import List from "../../framework/commonts/List";
-import { LobbyType, LobbyTypeStr } from "../config/GameEnum";
+import { UIMgr } from "../../framework/manager/UIMgr";
+import { UIID } from "../config/Config";
+import { GoodsType, LobbyType, LobbyTypeStr, SGToGoodsType } from "../config/GameEnum";
 import { PlayerMgr } from "../manager/PlayerMgr";
 import DayTaskCell from "./DayTaskCell";
 
@@ -43,16 +45,26 @@ export default class LobbyUI extends BaseUI {
     }
 
     onShangGongBtn(event: cc.Event.EventTouch,type:string) {
-        this.success.active = true
-        cc.log("onShangGongBtn",type)
-        PlayerMgr.getInstance().getDayTaskData().doTask(this.lobbyType,Number(type))
-        this.success.opacity = 0
-        this.xiangani.paused = false
-        this.xiangani.setAnimation(0, "idle1", true)
-        cc.tween(this.success).to(1,{opacity:255}).delay(1).call(() => {
-            this.success.active = false
-            this.xiangani.paused = true
-        }).start()
+        let item = PlayerMgr.getInstance().getBagData().getGoodsByType(SGToGoodsType[Number(type)])
+        if(item.length == 0){
+            UIMgr.getInstance().showTips("没有物品")
+            return
+        }
+
+        UIMgr.getInstance().openUI(UIID.SelectUI, item,(goodsID:number)=>{
+            PlayerMgr.getInstance().getBagData().removeGoods(goodsID,1)
+            
+            this.success.active = true
+            cc.log("onShangGongBtn",type)
+            PlayerMgr.getInstance().getDayTaskData().doTask(this.lobbyType,Number(type))
+            this.success.opacity = 0
+            this.xiangani.paused = false
+            this.xiangani.setAnimation(0, "idle1", true)
+            cc.tween(this.success).to(1,{opacity:255}).delay(1).call(() => {
+                this.success.active = false
+                this.xiangani.paused = true
+            }).start()
+        })
     }
 
     hideBtn(){

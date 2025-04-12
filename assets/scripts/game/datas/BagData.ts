@@ -51,5 +51,15 @@ export class BagData extends BaseData {
         return list
     }
 
+    removeGoods(id: number, num: number = 1) {
+        let data = this.data.bagList.find(item => item.goodsID == id)
+        if(data){
+            data.goodsNum -= num
+            if(data.goodsNum <= 0){
+                this.data.bagList.splice(this.data.bagList.indexOf(data), 1)
+            }
+            this.saveData()
+        }
+    }
     
 }

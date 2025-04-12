@@ -3,6 +3,8 @@ import { BaseData } from "../../framework/base/BaseData"
 import { EventMgr } from "../../framework/manager/EventMgr";
 import { UIMgr } from "../../framework/manager/UIMgr";
 import { EventName, GameConfig } from "../config/Config"
+import { LobbyType } from "../config/GameEnum";
+import { IRewardConfig } from "../config/InterFaceConfig";
 import { DataMgr } from "../manager/DataMgr";
 
 class Data {
@@ -13,10 +15,13 @@ class Data {
     /**头像 */
     avatarid:number = 0;
     /**积分 */
-    score:number = 0;
+    score:number = 1000;
     /**功德 */
     merit:number = 0;
+    /**放生池数据 */
+    fangshengData:IRewardConfig[] = [];
 }
+
 
 
 export class UserData extends BaseData {
@@ -56,14 +61,15 @@ export class UserData extends BaseData {
      * 更新积分值
      * @param num 正数增加，负数减少
      * */
-    changeEnergy(num:number){
+    changeScore(num:number){
         if(num > 0){
             this.data.score += num;
             UIMgr.getInstance().showTips("获得积分+"+num)
         }else{
             this.data.score -= Math.abs(num);
-            UIMgr.getInstance().showTips("消耗能量-"+Math.abs(num))
+            //UIMgr.getInstance().showTips("消耗能量-"+Math.abs(num))
         }
+        EventMgr.getInstance().emit(EventName.FlyCurrency, num)
         this.saveData()
     }
 
@@ -81,6 +87,28 @@ export class UserData extends BaseData {
             UIMgr.getInstance().showTips("消耗功德-"+Math.abs(num))
             //EventMgr.getInstance().emit(EventName.RefreshEenergy,num)
         }
+        this.updateRank()
         this.saveData()
     }
+
+    addFsGoods(id: number)  {
+        let data = this.data.fangshengData.find(item => item.goodsid == id)
+        if(!data){
+            data = {
+                goodsid: id,
+                num: 1,
+            }
+            this.data.fangshengData.push(data)
+        }else{
+            data.num += 1
+        }
+        this.saveData()
+    }
+
+    //更新排名数据
+    updateRank(){
+        let allData = DataMgr.getInstance().getRankData()
+        allData.find(item => item.uid == this.data.uid).gongde = this.data.merit
+    }
+
 }

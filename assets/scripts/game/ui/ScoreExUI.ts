@@ -1,5 +1,6 @@
 import BaseUI from "../../framework/base/BaseUI";
 import List from "../../framework/commonts/List";
+import { EventName } from "../config/Config";
 import { DataMgr } from "../manager/DataMgr";
 import { PlayerMgr } from "../manager/PlayerMgr";
 import DayTaskCell from "./DayTaskCell";
@@ -17,6 +18,7 @@ export default class ScoreExUI extends BaseUI {
     scoreLab: cc.Label = null;
 
     onLoad() {
+        this.addEvent(EventName.FlyCurrency,this.updateScore)
     }
 
     start() {
@@ -27,9 +29,12 @@ export default class ScoreExUI extends BaseUI {
             cell.getComponent(ScoreExCell).updateView(list[i])
         }
 
-        let score = PlayerMgr.getInstance().getUserInfo().score
-        this.scoreLab.string = score + ""
+        this.updateScore()
 
     }
 
+    updateScore(){
+        let score = PlayerMgr.getInstance().getUserInfo().score
+        this.scoreLab.string = score + ""
+    }
 }

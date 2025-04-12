@@ -38,6 +38,8 @@ export default class ScoreExCell extends ListItem {
             return
         }
         
+        PlayerMgr.getInstance().getUserData().changeScore(-this.config.score)
+
         //领取奖励
         let rewardItem:IRewardConfig[] = [
             {goodsid: this.config.goodsid,num:1}

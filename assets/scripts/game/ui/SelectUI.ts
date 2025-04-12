@@ -18,6 +18,8 @@ export default class SelectUI extends BaseUI {
     @property(cc.Node)
     cell: cc.Node = null;
 
+    private selectCallback:Function = null
+
     onLoad() {
         this.cell.active = false
     }
@@ -25,7 +27,8 @@ export default class SelectUI extends BaseUI {
     start() {
     }
 
-    init(rewardItem:BagInfo[]) {
+    init(rewardItem:BagInfo[], selectCallback:Function) {
+        this.selectCallback = selectCallback
         if(rewardItem.length < 4) {
             this.content.getComponent(cc.Widget).isAlignHorizontalCenter = true
             this.content.getComponent(cc.Widget).horizontalCenter = 0
@@ -36,8 +39,14 @@ export default class SelectUI extends BaseUI {
             let cell = cc.instantiate(this.cell)
             cell.active = true
             cell.parent = this.content
-            cell.getComponent(SelectCell).updateView(rewardItem[i])
+            cell.getComponent(SelectCell).updateView(rewardItem[i],this)
         }
+    }
 
+    onSelect(item:BagInfo){
+        this.closeUI()
+        if(this.selectCallback) {
+            this.selectCallback(item.goodsID)
+        }
     }
 }
