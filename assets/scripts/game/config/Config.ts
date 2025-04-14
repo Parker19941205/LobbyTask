@@ -85,7 +85,7 @@ export enum EventName {
     FlyCurrency = "FlyCurrency",
     RefreshSign = "RefreshSign",
     RefreshTask = "RefreshTask",
-
+    RefreshGoodsData = "RefreshGoodsData"
 }
 
 /**tip提示 */

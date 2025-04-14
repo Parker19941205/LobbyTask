@@ -3,8 +3,8 @@ import { BaseData } from "../../framework/base/BaseData"
 import { EventMgr } from "../../framework/manager/EventMgr";
 import { UIMgr } from "../../framework/manager/UIMgr";
 import { EventName, GameConfig } from "../config/Config"
-import { LobbyType } from "../config/GameEnum";
-import { IRewardConfig } from "../config/InterFaceConfig";
+import { GoodsType, LobbyType } from "../config/GameEnum";
+import { IRewardConfig, LobbyGoodsConfig } from "../config/InterFaceConfig";
 import { DataMgr } from "../manager/DataMgr";
 
 class Data {
@@ -18,8 +18,8 @@ class Data {
     score:number = 1000;
     /**功德 */
     merit:number = 0;
-    /**放生池数据 */
-    fangshengData:IRewardConfig[] = [];
+    /**放生上供数据 */
+    goodsData:LobbyGoodsConfig[] = [];
 }
 
 
@@ -91,19 +91,43 @@ export class UserData extends BaseData {
         this.saveData()
     }
 
-    addFsGoods(id: number)  {
-        let data = this.data.fangshengData.find(item => item.goodsid == id)
+    addGoodsData(id: number,type:LobbyType)  {
+        let data = this.data.goodsData.find(item => item.goodsid == id && item.lobbyType == type)
         if(!data){
             data = {
                 goodsid: id,
                 num: 1,
+                lobbyType: type
             }
-            this.data.fangshengData.push(data)
+            this.data.goodsData.push(data)
         }else{
             data.num += 1
         }
         this.saveData()
+        EventMgr.getInstance().emit(EventName.RefreshGoodsData)
     }
+
+    getGoodsByLobbyType(type: LobbyType) :LobbyGoodsConfig[]{
+        let arr = []
+        for(let i = 0; i < this.data.goodsData.length; i++){
+            if(this.data.goodsData[i].lobbyType == type){
+                arr.push(this.data.goodsData[i])
+            }
+        }
+        return arr
+    }
+
+    getGoodsByAllType(type: LobbyType,goodsType:GoodsType) :LobbyGoodsConfig[]{
+        let arr = []
+        for(let i = 0; i < this.data.goodsData.length; i++){
+            let cfg = DataMgr.getInstance().getGoodsCfgByID(this.data.goodsData[i].goodsid)
+            if(cfg.type == goodsType && this.data.goodsData[i].lobbyType == type){
+                arr.push(this.data.goodsData[i])
+            }
+        }
+        return arr
+    }
+
 
     //更新排名数据
     updateRank(){

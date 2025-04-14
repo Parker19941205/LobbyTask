@@ -1064,7 +1064,7 @@
     "hoverSprite": null,
     "_N$disabledSprite": null,
     "_N$target": null,
-    "invertTime": 1,
+    "invertTime": 0,
     "_id": ""
   },
   {
