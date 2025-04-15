@@ -399,7 +399,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 26.64,
+      "width": 23.31,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -453,7 +453,7 @@
     "_dstBlendFactor": 771,
     "_string": "--",
     "_N$string": "--",
-    "_fontSize": 40,
+    "_fontSize": 35,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -720,9 +720,6 @@
         "__id__": 23
       },
       {
-        "__id__": 24
-      },
-      {
         "__id__": 25
       }
     ],
@@ -816,7 +813,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        2.868,
         0,
         0,
         0,
@@ -929,7 +926,9 @@
     "duration": 0.1,
     "zoomScale": 1.2,
     "clickEvents": [
-      null
+      {
+        "__id__": 24
+      }
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
@@ -988,31 +987,14 @@
     "_id": ""
   },
   {
-    "__type__": "cc.Widget",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 18
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 1
     },
-    "_enabled": true,
-    "alignMode": 1,
-    "_target": null,
-    "_alignFlags": 36,
-    "_left": 0,
-    "_right": 15.116000000000028,
-    "_top": 1288.633,
-    "_bottom": 37.5,
-    "_verticalCenter": 0,
-    "_horizontalCenter": 0,
-    "_isAbsLeft": true,
-    "_isAbsRight": true,
-    "_isAbsTop": true,
-    "_isAbsBottom": true,
-    "_isAbsHorizontalCenter": true,
-    "_isAbsVerticalCenter": true,
-    "_originalWidth": 0,
-    "_originalHeight": 0,
-    "_id": ""
+    "component": "",
+    "_componentId": "be558TmkwFCwZe9qHLN/owb",
+    "handler": "onClickBtn",
+    "customEventData": ""
   },
   {
     "__type__": "1d38dhoKeVK6Ib8C97JY0OJ",
@@ -1104,8 +1086,15 @@
     "selectedFlag": null,
     "selectedSpriteFrame": null,
     "adaptiveSize": false,
-    "content": null,
-    "cell": null,
+    "title": {
+      "__id__": 10
+    },
+    "jinduLab": {
+      "__id__": 14
+    },
+    "btnLab": {
+      "__id__": 20
+    },
     "_id": ""
   },
   {

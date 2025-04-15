@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "b9875b3d-76a1-4c0d-908a-994e16d519f1",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 750,
+  "height": 1560,
+  "platformSettings": {},
+  "subMetas": {
+    "放生成功的提示效果图": {
+      "ver": "1.0.6",
+      "uuid": "3d2dcf06-61be-42a0-b588-0824a44c679c",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "b9875b3d-76a1-4c0d-908a-994e16d519f1",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 750,
+      "height": 1560,
+      "rawWidth": 750,
+      "rawHeight": 1560,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

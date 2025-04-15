@@ -1,1 +1,1 @@
-module.exports = {"DayTasksCfg":{}};
+module.exports = {"DayTasksCfg":{},"SignCfg":{},"GoodsCfg":{},"ScoreExchangeCfg":{}};

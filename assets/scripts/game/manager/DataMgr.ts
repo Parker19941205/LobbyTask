@@ -1,12 +1,8 @@
+import { DayTasksCfg, GameData, GoodsCfg, ScoreExchangeCfg, SignCfg } from "../../../resources/configs/GameDataCfg";
 import { BaseEventName, LoadingProcess } from "../../framework/configs/Appcfg";
 import { EventMgr } from "../../framework/manager/EventMgr";
 import { LogMgr } from "../../framework/manager/LogMgr";
 import { ResourceMgr } from "../../framework/manager/ResourceMgr";
-import { Utils } from "../../framework/utils/Utils";
-import { EventName } from "../config/Config";
-import { DayTasksCfg, GameData } from "../config/GameDataCfg";
-
-
 
 export class DataMgr {
     private static instance: DataMgr;
@@ -37,4 +33,19 @@ export class DataMgr {
         return this.data.DayTasksCfg;
     }
 
+    public getAllSignCfg(): SignCfg[] {
+        return this.data.SignCfg;
+    }
+
+    public getAllGoodsCfg(): GoodsCfg[] {
+        return this.data.GoodsCfg;
+    }
+
+    public getAllScoreExCfg(): ScoreExchangeCfg[] {
+        return this.data.ScoreExchangeCfg;
+    }
+
+    public getSignCfgByDay(day: number): SignCfg {
+        return this.data.SignCfg.find((cfg) => cfg.id == day);
+    }
 }

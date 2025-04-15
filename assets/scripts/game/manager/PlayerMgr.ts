@@ -5,9 +5,11 @@ import { NetData } from "../../framework/network/NetInterface";
 import { NetManager } from "../../framework/network/NetManager";
 import { TimeUtils } from "../../framework/utils/TimeUtils";
 import { EventName } from "../config/Config";
+import { BagData } from "../datas/BagData";
 import { DayTaskData } from "../datas/DayTaskData";
 import { GameData } from "../datas/GameData";
 import { GuideData } from "../datas/GuideData";
+import { SignData } from "../datas/SignData";
 import { TrackData } from "../datas/TrackData";
 import { UserData } from "../datas/UserData";
 
@@ -58,7 +60,8 @@ export class PlayerMgr{
     private gameData: GameData;
     private userData: UserData;
     private dayTaskData: DayTaskData;
-
+    private signData: SignData;
+    private bagData: BagData;
     private walletDelayMsg = []
 
     private initData() {
@@ -82,7 +85,12 @@ export class PlayerMgr{
         this.guideData.getData();
         this.dayTaskData = new DayTaskData();
         this.dayTaskData.getData();
+        this.signData = new SignData();
+        this.signData.getData();
+        this.bagData = new BagData();
+        this.bagData.getData();
 
+        
 
         EventMgr.getInstance().emit(BaseEventName.Loading, LoadingProcess.PlayerCfg)
     }
@@ -111,6 +119,13 @@ export class PlayerMgr{
         return this.dayTaskData;
     }
 
+    getSignData() {
+        return this.signData;
+    }
+
+    getBagData() {
+        return this.bagData;
+    }
 
     // 每秒更新
     updateData(){

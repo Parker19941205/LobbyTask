@@ -19,7 +19,7 @@ export interface SignDayData {
      /**签到类型 */
     // signType:SignTypeEnum
     /**虚弱层数 */
-    layer:number
+    //layer:number
 }
 
 class Data {
@@ -34,7 +34,7 @@ class Data {
 export class SignData extends BaseData {
     protected ecrypt: boolean = false;
     data: Data;
-    gameKey: string = "FIGHT_USER_SIGN";
+    gameKey: string = GameConfig.AppCacheName + "USER_SIGN";
     /**当前签第几天 */
     curentDay: number = 1;
     public createData(): Data {
@@ -55,9 +55,25 @@ export class SignData extends BaseData {
                 day = 0;
             }
             this.curentDay = day + 1;
+            //超出7天从第一天开始
+            if (this.curentDay > 7) {
+                //清空签到数据
+                this.clearSignData()
+            }
             cc.log("当前可以签到天",this.curentDay)
         }
     }
+
+    /**清空签到数据 */
+    public clearSignData() {
+        this.data.alredyIdx = []
+        this.curentDay = 1;
+        this.data.firstLoginTime = TimeUtils.GetTimeBySecond();
+        this.data.firstLoginDayTime = TimeUtils.dayStart()
+        this.data.lastSignTime = -1;
+        this.saveData()
+    }
+
     /**获取当前可以签到第几天的 */
     public getCurentDay(): number {
         return this.curentDay;
@@ -88,24 +104,16 @@ export class SignData extends BaseData {
         return id == this.curentDay;
     }
     /**开始签到 */
-    public startSign(day: number,layer: number) {
+    public startSign(day: number,layer?: number) {
         let signed = this.checkIsSigned(day)
         if(!signed){
-            let data = {day:day,layer:layer}
+            let data = {day:day}
             this.data.alredyIdx.push(data)
             this.data.lastSignTime = TimeUtils.GetTimeBySecond();
-        }else{
-            signed.layer += layer
         }
 
         this.saveData();
-        EventMgr.getInstance().emit(EventName.RefreshBaseInfo)
-        EventMgr.getInstance().emit(EventName.RefreshSignRed)
-        
-
-        let alllayer = this.getSignLayer()
-        EventCF[TrackId.sign_in].eventValue =  this.data.alredyIdx.length + "-" + alllayer
-        PlayerMgr.getInstance().getTrackData().youmengTrack(TrackId.sign_in)
+        EventMgr.getInstance().emit(EventName.RefreshSign,day)
     }
 
 

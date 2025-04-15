@@ -10,7 +10,12 @@ export enum UIID {
     UIMask,
     UIHome,
     DayTaskUI,
-
+    LobbyUI,
+    BagUI,
+    FangShengUI,
+    SignUI,
+    ScoreExUI,
+    RewardUI
 }
 
 /**ui配置类 */
@@ -26,6 +31,13 @@ export let UICF: { [key: string]: UIConf } = {
     /**游戏ui */
     [UIID.UIHome]: { prefab: "UIHome", name: "UIHome", showTop: true, zIndex: OrderLayer.main, bundleName: "mainprefabs" },
     [UIID.DayTaskUI]: { prefab: "DayTaskUI", name: "DayTaskUI", showTop: true, zIndex: OrderLayer.pop, bundleName: "prefabs" },
+    [UIID.LobbyUI]: { prefab: "LobbyUI", name: "LobbyUI", showTop: true, zIndex: OrderLayer.main, bundleName: "prefabs" },
+    [UIID.BagUI]: { prefab: "BagUI", name: "BagUI", showTop: true, zIndex: OrderLayer.pop, bundleName: "prefabs" },
+    [UIID.FangShengUI]: { prefab: "FangShengUI", name: "FangShengUI", showTop: true, zIndex: OrderLayer.main, bundleName: "prefabs" },
+    [UIID.SignUI]: { prefab: "SignUI", name: "SignUI", showTop: true, zIndex: OrderLayer.pop, bundleName: "prefabs" },
+    [UIID.ScoreExUI]: { prefab: "ScoreExUI", name: "ScoreExUI", showTop: true, zIndex: OrderLayer.main, bundleName: "prefabs" },
+    [UIID.RewardUI]: { prefab: "RewardUI", name: "RewardUI", showTop: true, zIndex: OrderLayer.pop, bundleName: "prefabs" },
+
 
 }
 
@@ -67,11 +79,8 @@ export enum EventName {
     RefreshMaskShow = "RefreshMaskShow",
     RefreshEenergy = "RefreshEenergy",
     FlyCurrency = "FlyCurrency",
-    RefreshPet = "RefreshPet",
-    RefreshUserInfo = "RefreshUserInfo",
-    RefreshCurPet = "RefreshCurPet",
-    RefreshScanResult = "RefreshScanResult",
-    RefreshChatMsg = "RefreshChatMsg",
+    RefreshSign = "RefreshSign",
+ 
 
 }
 

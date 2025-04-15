@@ -4,6 +4,7 @@ import { TimeUtils } from "../../framework/utils/TimeUtils";
 import { EventName, GameConfig } from "../config/Config";
 import { DataMgr } from "../manager/DataMgr";
 import { PlayerMgr } from "../manager/PlayerMgr";
+import { DayTasksCfg } from "./GameData";
 
 
 export class DayTaskInfo{
@@ -49,15 +50,33 @@ export class DayTaskData extends BaseData {
         // this.saveData()
     }
 
-    getAllTask() {
+    getAllTask() :DayTasksCfg[] {
         let data = DataMgr.getInstance().getAllDayTaskCfg()
         return data;
     }
 
-    getTaskByID(taskID: number) {
-        this.data.dayTask.find(task => task.taskID == taskID)
+    getTaskByID(taskID: number) :DayTaskInfo {
+        let data = this.data.dayTask.find(task => task.taskID == taskID)
+        if(!data){
+            data = new DayTaskInfo()
+            data.taskID = taskID
+            this.data.dayTask.push(data)
+        }
+        return data;
     }
 
+    getTodayTask() {
+        let list = []
+        let configData = this.getAllTask()
+        for(var i = 0; i < configData.length; i++){
+            let config = configData[i];
+            let task = this.getTaskByID(config.id)
+            if(task.isget == false || task.isfinish == false){
+                list.push(config)
+            }
+        }
+        return list;
+    }
 
     updateTaskData(mtaskType: TaskType) {
         for(var i = 0; i < this.data.taskList.length; i++){

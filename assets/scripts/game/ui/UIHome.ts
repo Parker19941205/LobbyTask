@@ -2,21 +2,10 @@ import BaseUI from "../../framework/base/BaseUI";
 import UIToggle from "../../framework/commonts/UIToggle";
 import { UIMgr } from "../../framework/manager/UIMgr";
 import { UIID } from "../config/Config";
+import { LobbyType } from "../config/GameEnum";
 import EggController from "./EggController";
 
-
 const { ccclass, property } = cc._decorator;
-
-enum PropType{
-    /**球 */
-    Ball = 1,
-    /*交换 */
-    Swap = 2,
-    /*锤子 */
-    Hammer = 3,
-    /**闪电 */
-    Lightning = 4
-}
 
 /**主界面 */
 @ccclass
@@ -54,7 +43,22 @@ export default class UIHome extends BaseUI {
         UIMgr.getInstance().openUI(UIID.DayTaskUI)
     }
 
-  
+    onBagBtn(){
+        UIMgr.getInstance().openUI(UIID.BagUI)
+    }
+
+    onSignBtn(){
+        UIMgr.getInstance().openUI(UIID.SignUI)
+    }
+
+    onScoreBtn(){
+        UIMgr.getInstance().openUI(UIID.ScoreExUI)
+    }
+
+    onGotoBtn(event:cc.Event.EventTouch,lobbyType:LobbyType){
+        console.log("UIHome:onGotoBtn",lobbyType)
+        UIMgr.getInstance().openUI(lobbyType == LobbyType.FangShengChi ? UIID.FangShengUI : UIID.LobbyUI,Number(lobbyType))
+    }
   
     
     

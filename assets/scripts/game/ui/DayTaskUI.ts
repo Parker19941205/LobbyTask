@@ -17,9 +17,13 @@ export default class DayTaskUI extends BaseUI {
     }
 
     start() {
-        this.dataList = PlayerMgr.getInstance().getDayTaskData().getAllTask()
-        cc.log("DayTaskUI::start111", this.dataList)
+        this.dataList = PlayerMgr.getInstance().getDayTaskData().getTodayTask()
+        cc.log("DayTaskUI::list", this.dataList)
         this.updateList()
+    }
+
+    closeUI(){
+        super.closeUI()
     }
 
     updateList(){
@@ -36,7 +40,7 @@ export default class DayTaskUI extends BaseUI {
         let ctl = tItem.getComponent(DayTaskCell)
         let singleData = dateSource[idx]
         if (idx <= dateSource.length) {
-            ctl.updateView(singleData)
+            ctl.updateView(singleData,this)
         }
     }
 }

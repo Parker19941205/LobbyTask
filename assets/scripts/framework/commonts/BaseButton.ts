@@ -1,7 +1,9 @@
 import { AudioMgr } from '../manager/AudioMgr';
 const { ccclass, property } = cc._decorator;
+import menu = cc._decorator.menu;
 
 @ccclass
+@menu('自定义组件/通用按钮')
 export class BaseButton extends cc.Button {
     @property
     invertTime: number = 1;
