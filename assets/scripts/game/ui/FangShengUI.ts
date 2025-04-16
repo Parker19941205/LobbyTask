@@ -57,10 +57,12 @@ export default class FangShengUI extends BaseUI {
             return
         }
 
-        UIMgr.getInstance().openUI(UIID.SelectUI, item,(goodsID:number)=>{
+        UIMgr.getInstance().openUI(UIID.SelectUI, item,(goodsIdList:number[])=>{
             UIMgr.getInstance().showTips("放生成功")
-            PlayerMgr.getInstance().getBagData().removeGoods(goodsID,1)
-            PlayerMgr.getInstance().getUserData().addGoodsData(goodsID,LobbyType.FangShengChi)
+            for(let i = 0;i<goodsIdList.length;i++){
+                PlayerMgr.getInstance().getBagData().removeGoods(goodsIdList[i],1)
+                PlayerMgr.getInstance().getUserData().addGoodsData(goodsIdList[i],LobbyType.FangShengChi)
+            }
             this.updateFsData()
         })
     }

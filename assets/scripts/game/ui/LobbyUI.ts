@@ -58,13 +58,16 @@ export default class LobbyUI extends BaseUI {
             return
         }
 
-        UIMgr.getInstance().openUI(UIID.SelectUI, item,(goodsID:number)=>{
-            PlayerMgr.getInstance().getBagData().removeGoods(goodsID,1)
-            
+        UIMgr.getInstance().openUI(UIID.SelectUI, item,(goodsIdList:number[])=>{
             this.success.active = true
             cc.log("onShangGongBtn",type)
             PlayerMgr.getInstance().getDayTaskData().doTask(this.lobbyType,Number(type))
-            PlayerMgr.getInstance().getUserData().addGoodsData(goodsID,this.lobbyType)
+
+            for(let i = 0;i < goodsIdList.length;i++){
+                PlayerMgr.getInstance().getBagData().removeGoods(goodsIdList[i],1)
+                PlayerMgr.getInstance().getUserData().addGoodsData(goodsIdList[i],this.lobbyType)
+            }
+
             this.success.opacity = 0
             this.xiangani.paused = false
             this.xiangani.setAnimation(0, "idle1", true)

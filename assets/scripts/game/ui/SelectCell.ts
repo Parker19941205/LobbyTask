@@ -30,6 +30,6 @@ export default class SelectCell extends ListItem {
     }
 
     onItemClick(){
-        this.delegate.onSelect(this.data)
+        //this.delegate.onSelect(this.data)
     }
 }

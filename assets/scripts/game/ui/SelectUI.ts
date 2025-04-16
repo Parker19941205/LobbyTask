@@ -1,5 +1,6 @@
 import BaseUI from "../../framework/base/BaseUI";
 import List from "../../framework/commonts/List";
+import { UIMgr } from "../../framework/manager/UIMgr";
 import { IRewardConfig } from "../config/InterFaceConfig";
 import { BagInfo } from "../datas/BagData";
 import { DataMgr } from "../manager/DataMgr";
@@ -39,14 +40,28 @@ export default class SelectUI extends BaseUI {
             let cell = cc.instantiate(this.cell)
             cell.active = true
             cell.parent = this.content
+            cell.attr({data: rewardItem[i]})
             cell.getComponent(SelectCell).updateView(rewardItem[i],this)
         }
     }
 
-    onSelect(item:BagInfo){
-        this.closeUI()
+    onOkClick() {
+        let goodsID = []
+        for(let i = 0; i < this.content.children.length; i++){
+            let toggle = this.content.children[i].getComponent(cc.Toggle)
+            if(toggle.isChecked) {
+                let data = this.content.children[i]["data"] as BagInfo
+                goodsID.push(data.goodsID)
+            }
+        }
+        if(goodsID.length == 0) {
+            UIMgr.getInstance().showTips("请选择物品")
+            return
+        }
+
         if(this.selectCallback) {
-            this.selectCallback(item.goodsID)
+            this.selectCallback(goodsID)
+            this.closeUI()
         }
     }
 }

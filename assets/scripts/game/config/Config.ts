@@ -134,6 +134,6 @@ export class GameConfig {
     public static  socketUrl: string = ""
     //服务器
     public static readonly ServerType: string = "release"  // test
- 
-
+    //设计分辨率
+    public static readonly DesignResolution: cc.Size = cc.size(750, 1560);
 }
